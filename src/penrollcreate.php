@@ -555,7 +555,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	<link rel = "stylesheet" href = "css/bootstrap.min.css">
 	<link rel = "stylesheet" href = "css/penrollcreate.css">
 	<link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap"
+        href="css/font-google.css"
+        rel="stylesheet">
+		<link
+        href="css/fonts.googleapis.com_css2_family=Poppins_ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap.css"
         rel="stylesheet">
 </head>
 <body>
@@ -569,17 +572,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 							<span class="invalid-feedback"><?php echo $usernameerror; ?></span></div>	<br>
 		<div class = "stdform">PASSWORD: <input type = "password" required name = "password" class="form-control <?php echo (!empty($passworderror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $password; ?>"/>
 							<span class="invalid-feedback"><?php echo $pasworderror; ?></span></div>	<br>	
-		<div class = "stdform">STUDENT NUMBER: <input type = "text" required name = "studnum" id = "studnumid" class="form-control <?php echo (!empty($studnumerror)) ? 'is-invalid' : ''; ?>"/>
+		<div class = "stdform">STUDENT NUMBER: <input type = "text" required name = "studnum" value = "21L-" id = "studnumid" class="form-control <?php echo (!empty($studnumerror)) ? 'is-invalid' : ''; ?>"/>
 		<span class="invalid-feedback"><?php echo $studnumerror; ?></span></div> <br> 
 		<div class = "stdform">STUDENT NAME: <input type = "text" required name = "studname" class="form-control <?php echo (!empty($studnameerror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $studname; ?>"/>
 							<span class="invalid-feedback"><?php echo $studnameerror; ?></span>	</div><br> 
-		
 		<div class = "raxx">
 		<div class = "stdform">STUDENT STATUS: <select name = "sstatus" onchange = "status(this.value)"><option value ="Regular">Regular</option><option value ="Irregular">Irregular</option></select></div>
 		<div class = "stdform">COURSE YEAR: <select name = "cyear" ><option value = "1ST YEAR">1ST YEAR</option><option value = "2ND YEAR">2ND YEAR</option><option value = "3RD YEAR">3RD YEAR</option><option value = "4TH YEAR">4TH YEAR</option></select></div> 
 		<div class = "stdform">SEMESTER: <select name="semester"> <option value = "1ST SEMESTER" selected>1ST SEMESTER</option> <option value = "2ND SEMESTER">2ND SEMESTER</option></select></div>
 	</div>
-	<div id = "exform" style = "display: none;"><br>
+	<div id = "exform" style = "display: none;">
 		<div class = "stdform1">	PAYMENT:           <input type = "radio" name = "payment" id = "paymentid" value = "FULL" checked /> FULL           <input type = "radio" name = "payment" value = "PARTIAL"/> PARTIAL </div><br>
 		<div class = "stdform">	SCHOOL YEAR: <input type = "text" required name = "syear" value = "<?php echo $fyear; ?>" id = "syearid" class="form-control <?php echo (!empty($syearerror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $syear; ?>" />
 							<span class="invalid-feedback"><?php echo $syearerror; ?></span></div> 

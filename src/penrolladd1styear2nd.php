@@ -77,21 +77,6 @@ for ($i = 1; $i<9; $i++) {
 					$time = "13:30 – 16:00";
 					break;
 				}
-
-		$sqlsubj = "INSERT INTO `subject_info`(`subject_code`, `student_number`, `subject_desc`, `units`, `section`, `day`, `time`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		/*$sqlchecksub = "SELECT `subject_code` FROM `subject_info` WHERE `student_number` = '$studnum'";
-		$sqlquerycsub = mysqli_query($link, $sqlchecksub);
-		while($checksub = mysqli_fetch_array($sqlquerycsub)) {
-			if ($scode === $checksub['subject_code']) {
-				$s++;
-				$stop = 1;
-			}
-		}
-				mysqli_free_result($sqlquerycsub);*/
-
-		if($stmtsubj = mysqli_prepare($link, $sqlsubj)){
-			mysqli_stmt_bind_param($stmtsubj, "sssssss", $setscode, $setstudnum, $setsdesc, $setunits, $setsection, $setday, $settime);
-			//$setsubjid = $subjid . $inc;
 			$setscode = $scode; 
 			$setstudnum = $studnum;
 			$setsdesc = $sdesc;
@@ -100,6 +85,16 @@ for ($i = 1; $i<9; $i++) {
 			$setday = $day;
 			$settime = $time;
 
+		$sqlsubj = "INSERT INTO `subject_info`(`subject_code`, `student_number`, `subject_desc`, `units`, `section`, `day`, `time`) 
+            SELECT * FROM (SELECT  ? AS `subject_code`, ? AS `student_number`, ? AS `subject_desc`, ? AS `units`, ? AS `section`, ? AS `day`, ? AS `time`) AS new_value 
+            WHERE NOT EXISTS (SELECT 1 FROM `subject_info` WHERE `subject_code` = ? AND `student_number` = ?) 
+            LIMIT 1;";
+
+
+		if($stmtsubj = mysqli_prepare($link, $sqlsubj)){
+			mysqli_stmt_bind_param($stmtsubj, "sssssssss", $setscode, $setstudnum, $setsdesc, $setunits, $setsection, $setday, $settime, $setscode, $setstudnum);
+			//$setsubjid = $subjid . $inc;
+		
 			mysqli_stmt_execute($stmtsubj);
 			
 		}	

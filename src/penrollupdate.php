@@ -29,6 +29,8 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 	$enterstudnum = trim($_GET["student_number"]);
 	if(empty($enterstudnum)){
 		$studnumerror = "Student Number Must Be Filled In!";
+	}else if (!filter_var($enterstudnum, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-z -.,ñ, 0-9 A-Z\s]+$/")))){
+		$studnumerror = "Student Name Is Not Valid!.";
 	} else{
 		$studnum= $enterstudnum;
 	}
@@ -78,7 +80,7 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 	if(empty($studnumerror) && empty($studnameerror) && empty($cyearerror) && empty($syearerror) && empty($paymenterror) && empty($semestererror)){
 		$status = trim($_POST["sstatus"]);
 		$preenrollment = trim($_POST["preenrollment"]);
-		
+	try {
 		$sqluplog = "UPDATE login_info SET user=?, pass=? WHERE student_number=?";
 		
 		if($stmtuplog = mysqli_prepare($link, $sqluplog)){
@@ -89,8 +91,12 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 			mysqli_stmt_execute($stmtuplog);
 		}
 		
-		mysqli_stmt_close($stmtuplog);
-		
+		mysqli_stmt_close($stmtuplog); 
+	}
+	catch(Exception $login) {
+		echo "<script>alert('Login Record Duplicates Detected!');</script>";
+	}
+	try {
 		$sql = "UPDATE student_info SET student_name=?, course_year=?, payment=?, school_year=?, semester=?, status=?, preenrollment=? WHERE student_number=?";
 		
 		if($stmt = mysqli_prepare($link, $sql)){
@@ -111,9 +117,11 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 			}
 		}
 		mysqli_stmt_close($stmt);
-	}	
-	
 		mysqli_close($link);
+	}	catch (Exception $update) {
+		echo "<script>alert('Student Record Duplicates Detected!');</script>";
+	}
+}
 } else {
 	if(isset($_GET["student_number"]) && !empty(trim($_GET["student_number"]))){
 		$student_number = trim($_GET["student_number"]);
@@ -192,10 +200,11 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 			
 			mysqli_close($link);
 			
-	}
 }
 	}
 }
+}
+
 
 ?>
 
@@ -207,19 +216,23 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 	<title>Update Student Record</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/penrollupdate.css">
+	<link href = "css/font-google.css" rel = "stylesheet">
+	<link
+        href="css/fonts.googleapis.com_css2_family=Poppins_ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap.css"
+        rel="stylesheet">
 </head>
 <body>
 <div class = "wrapper">
 	<div class = "controller-fluid">
 		<div class = "row">
 			<div id = "student" class = "col-md-12">
-		<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-		<p5><b>[UPDATE STUDENT PRE-ENROLLMENT RECORD]</b></p5>
+		<form name = "update" action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+		<p5 id = "header"><b>[UPDATE STUDENT PRE-ENROLLMENT RECORD]</b></p5>
 		<input type = "hidden" name = "student_number" value = "<?php echo $student_number; ?>"/>
 		<div class = "stdform">USERNAME: <input type = "text" required name = "username" class="form-control <?php echo (!empty($usernameerror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $username; ?>"/>
 							<span class="invalid-feedback"><?php echo $usernameerror; ?></span></div>	<br>
 		<div class = "stdform">PASSWORD: <input type = "text" required name = "password" class="form-control <?php echo (!empty($passworderror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $password; ?>"/>
-							<span class="invalid-feedback"><?php echo $pasworderror; ?></span></div>	<br>	
+							<span class="invalid-feedback"><?php echo $passworderror; ?></span></div>	<br>	
 		<div class = "stdform">STUDENT NAME: <input type = "text" required name = "studname" class="form-control <?php echo (!empty($studnameerror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $studname; ?>"/>
 							<span class="invalid-feedback"><?php echo $studnameerror; ?></span>	</div><br> 
 		
@@ -234,7 +247,7 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 							<span class="invalid-feedback"><?php echo $syearerror; ?></span></div> 
 					  
 			</div><br>
-		                                                                        <div class = "button"> <input type = "button"  value = "Cancel" onclick ="cancel()" id = "butt" />   <input type = "submit" id = "butt" value = "Update" /></div>
+		                                                                        <div class = "button"> <input type = "button"  value = "Cancel" onclick ="cancel()" id = "butt" />   <input type = "submit" id = "butt" value = "Update" onclick = "validate()" /></div>
 			</form>
 			
 			</div>
@@ -246,6 +259,7 @@ if (isset($_POST["student_number"]) && !empty($_POST["student_number"])){
 function cancel() {
 	window.location.href = 'penrolladmin.php';
 }
+
 </script>
 
 </html>

@@ -6,7 +6,7 @@
 }
 
 body {
-	background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("../img/123.png") no-repeat;
+	background: url("../img/123.png") no-repeat;
 	background-size: 100% 100%;
 	background-position: center;
 	background: cover;
@@ -91,11 +91,12 @@ body {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 }
 #logout:hover {
-	background-color: red;
+	background-color: #449c64;
 		color: white;
 }
 #addbutton {
@@ -104,7 +105,8 @@ body {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 }
 #addbutton:hover {
@@ -128,7 +130,7 @@ body {
   
   .stdform {
 	margin-bottom: 10px;
-	color: #449c64;
+	color: white;
 	font-weight: bold;
   }
   
@@ -147,7 +149,8 @@ body {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 	cursor: pointer;
 	margin-top: -40px;
@@ -168,7 +171,7 @@ body {
   }
 
   .stdform1{
-	color: #449c64;
+	color: white;
 	font-weight: bold;
 	align-items: center;
 	margin-left: 40px;
@@ -184,3 +187,16 @@ body {
   /* Bootstrap Styles */
   @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
   
+  #student {
+	color: white;
+	text-shadow: 2px 2px #28a745;
+}
+
+#exform {
+	color: white;
+	text-shadow: 2px 2px #28a745;
+}
+
+#term {
+	background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75));
+}

@@ -8,7 +8,10 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/penrollsetsubject.css">
 	<link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap"
+        href="css/font-google.css"
+        rel="stylesheet">
+		<link
+        href="css/fonts.googleapis.com_css2_family=Poppins_ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap.css"
         rel="stylesheet">
 	
 </head>
@@ -20,7 +23,7 @@
 				<div class="col-md-12">
 				<br><br>
 		<a href = "penrolladmin.php" class = "btn btn-danger pull-left" id = "logout">BACK TO DASHBOARD</a>
-					<h1 class="mt-1 mb-3" align = "center">SUBJECT MANAGEMENT</h1>
+					<h1 class="mt-1 mb-3" align = "center" id = "header">SUBJECT MANAGEMENT</h1>
 
 					<div class="col-md-12">
 					<?php

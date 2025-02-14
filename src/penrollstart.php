@@ -21,6 +21,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$enterstudnum = trim($_POST["studnum"]);
 	if(empty($enterstudnum)){
 		$studnumerror = "Student Number Must Be Filled In!";
+	}else if (!filter_var($enterstudnum, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-z -.,ñ 0-9 A-Z\s]+$/")))){
+		$studnumerror = "Student Number Is Not Valid!";
 	} else{
 		$studnum= $enterstudnum;
 	}
@@ -500,6 +502,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		}
 				mysqli_stmt_close($stmtsubj);
 		*/
+		
 		if (($cyear === "1ST YEAR") || ($cyear === "2ND YEAR")) {
 		$sqlsubj = "INSERT INTO `subject_info`(`subject_code`, `student_number`, `subject_desc`, `units`, `section`, `day`, `time`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
@@ -520,8 +523,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 				mysqli_stmt_close($stmtsubj);
 		}
 		}
-	
 		
+		try {
 		$sqllogin = "INSERT INTO `login_info`(`student_number`, `user`, `pass`, `type`) VALUES (?, ?, ?, ?)";
 		
 		if($stmtlogin = mysqli_prepare($link, $sqllogin)){
@@ -534,7 +537,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			mysqli_stmt_execute($stmtlogin);
 			}
 			mysqli_stmt_close($stmtlogin);
-		
+		} catch (Exception $login) {
+			echo "<script>alert('Login Record Duplicates Detected!');</script>";
+		}
+		try {
 		$sql = "INSERT INTO `student_info` (`student_number`, `student_name`, `course_year`, `payment`, `school_year`, `semester`, `status`, `preenrollment`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		if($stmt = mysqli_prepare($link, $sql)){
@@ -550,8 +556,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			$setpreenrollment = $preenrollment;
 			
 				if(mysqli_stmt_execute($stmt)){
-				echo "<script>alert('Congratulations! You are now a student of Southern Luzon State University!');</script>";
-				header("location: penrollstudent.php?student_number=$studnum");
+				header("location: penrolllogin.php?cong=1");
 				exit();
 			} else {
 				echo "Oops! Something went wrong. Please try again later.";
@@ -559,9 +564,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 			
 		}
 		mysqli_stmt_close($stmt);
-	}
-	}
+	
+	
 		mysqli_close($link);
+	} catch (Exception $student) {
+		echo "<script>alert('Student Record Duplicates Detected!');</script>";
+	}
+		}
+	}
+
 
 ?>
 <!DOCTYPE html>
@@ -572,12 +583,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	<link rel = "stylesheet" href = "css/bootstrap.min.css">
 	<link rel = "stylesheet" href = "css/penrollstart.css">
 	<link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap"
+        href="css/font-google.css"
+        rel="stylesheet">
+		<link
+        href="css/fonts.googleapis.com_css2_family=Poppins_ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap.css"
         rel="stylesheet">
 </head>
 <body>
 	<div id = "term" class = "col-md-12" style= width: 1000; height: 100;" <?php echo $show; ?>>
-<h1 align = "center" style = "color: # 84b21;"><br> <b>DATA PRIVACY NOTICE AND CONSENT</b></h1>
+<h1 align = "center" style = "color: # 84b21;" id = "header"><br> <b>DATA PRIVACY NOTICE AND CONSENT</b></h1>
 <br>
 <p align = "justify"> <b>
 <strong>SOUTHERN LUZON STATE UNIVERSITY</strong> is committed to protecting the privacy of its data subjects, 
@@ -610,6 +624,7 @@ If you have a concern or complaint about the way we are collecting or using your
 <div class = "button">
 <input type = button value = "Leave" onclick = "leave()" align="center" id = "logout" ></input>     <input type = "button" value = "Agree" onclick = "proceed()" align="center" id = "addbutton" ></input></div>
 </form>
+<br>
 </div>
 	
 	<div class = "wrapper">
@@ -617,12 +632,12 @@ If you have a concern or complaint about the way we are collecting or using your
 	<div class = "row">
 		<div id = "student" class = "col-md-12" style = "display:none;">
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method = "post">
-		<p5><b>FILL THIS FORM OUT TO PRE-ENROLL:</b></p5>
+		<p5 id = "student"><b>FILL THIS FORM OUT TO PRE-ENROLL:</b></p5>
 		<div class = "stdform">USERNAME: <input type = "text" required name = "username" class="form-control <?php echo (!empty($usernameerror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $username; ?>"/>
 							<span class="invalid-feedback"><?php echo $usernameerror; ?></span></div>	<br>
 		<div class = "stdform">PASSWORD: <input type = "password" required name = "password" class="form-control <?php echo (!empty($passworderror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $password; ?>"/>
 							<span class="invalid-feedback"><?php echo $pasworderror; ?></span></div>	<br>	
-		<div class = "stdform">STUDENT NUMBER: <input type = "text" required name = "studnum" id = "studnumid" class="form-control <?php echo (!empty($studnumerror)) ? 'is-invalid' : ''; ?>"/>
+		<div class = "stdform">STUDENT NUMBER: <input type = "text" value = "21L-" required name = "studnum" id = "studnumid" class="form-control <?php echo (!empty($studnumerror)) ? 'is-invalid' : ''; ?>" />
 		<span class="invalid-feedback"><?php echo $studnumerror; ?></span></div> <br> 
 		<div class = "stdform">STUDENT NAME: <input type = "text" required name = "studname" class="form-control <?php echo (!empty($studnameerror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $studname; ?>"/>
 							<span class="invalid-feedback"><?php echo $studnameerror; ?></span>	</div><br> 
@@ -637,6 +652,7 @@ If you have a concern or complaint about the way we are collecting or using your
 		<div class = "stdform">	SCHOOL YEAR: <input type = "text" required name = "syear" value = "<?php echo $fyear; ?>" id = "syearid" class="form-control <?php echo (!empty($syearerror)) ? 'is-invalid' : ''; ?>" value = "<?php echo $syear; ?>" />
 							<span class="invalid-feedback"><?php echo $syearerror; ?></span></div> 
 					  <input type = "hidden" name = "preenrollment" value = "PRE-ENROLLED"/>
+					  <input type = "hidden" name = "cong" value = "Congratulations!"/>
 			</div><br>
 		                                                               <div class = "button2"> <input type = "submit" value = "PRE-ENROLL" /></div>
 			

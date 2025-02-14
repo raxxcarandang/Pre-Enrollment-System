@@ -5,7 +5,11 @@ require_once "penrollconfig.php";
 $studnum = trim($_GET['student_number']);
 $subject = "";
 $stop = 0;
-
+$error = "";
+if (isset($_GET['error'])) { 
+	$error = $_GET['error'];
+	echo "<script>alert('SOME SUBJECTS WERE ALREADY ASSIGNED!')</script>";
+}
 $subject = trim($_GET['subject']);
 	switch($subject) {
 					case 1:
@@ -396,7 +400,10 @@ $subject = trim($_GET['subject']);
 	<link rel = "stylesheet" href = "css/bootstrap.min.css">
 	<link rel = "stylesheet" href = "css/penrolladdsub.css">
 	<link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap"
+        href="css/fonts.googleapis.com_css2_family=Poppins_ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap.css"
+        rel="stylesheet">
+	<link
+        href="css/font-google.css"
         rel="stylesheet">
 		
 </head>
@@ -540,7 +547,7 @@ $subject = trim($_GET['subject']);
         </tr>
 		</tbody>
     </table>
-	<input type = "button" class = "btn btn-success" value = "ADD 1STYR1STSEM SUBJECTS" onclick = "addfirsty()" id = "add1y1st"/> <input type = "button" class = "btn btn-success" value = "ADD 1STYR2NDSEM SUBJECTS" onclick = "addfirsty2()" id = "add1y2nd" />
+	<input type = "button" class = "btn btn-success" value = "ADD 1ST-YR/1ST-SEM SUBJECTS" onclick = "addfirsty()" id = "add1y1st"/> <input type = "button" class = "btn btn-success" value = "ADD 1ST-YR/2ND-SEM SUBJECTS" onclick = "addfirsty2()" id = "add1y2nd" />
 	</article>
 	<article id = "table2" >
     <table class = "table table-responsive" id = "intable1">
@@ -717,7 +724,7 @@ $subject = trim($_GET['subject']);
         </tr>
 		</tbody>
     </table>
-<input type = "button" class = "btn btn-success" value = "ADD 2NDYR1STSEM SUBJECTS" onclick = "addsecondy()" id = "add2y1st" /> <input type = "button" class = "btn btn-success" value = "ADD 2NDYR2NDSEM SUBJECTS" onclick = "addsecondy2()" id = "add2y2nd" />
+<input type = "button" class = "btn btn-success" value = "ADD 2ND-YR/1ST-SEM SUBJECTS" onclick = "addsecondy()" id = "add2y1st" /> <input type = "button" class = "btn btn-success" value = "ADD 2ND-YR/2ND-SEM SUBJECTS" onclick = "addsecondy2()" id = "add2y2nd" />
 
 		</article>
 			<?php echo "<script> 

@@ -41,7 +41,7 @@ for ($i = 1; $i<12; $i++) {
 					break;
 					
 					case 5:
-					$scode = "ITE 08";
+					$scode = "ITE 08 LAB";
 					$section = "FL (Lab)";
 					$sdesc = "Data Structures and Algorithms (LAB)";
 					$units = "1";
@@ -59,7 +59,7 @@ for ($i = 1; $i<12; $i++) {
 					break;
 					
 					case 7:
-					$scode = "ITE 09";
+					$scode = "ITE 09 LAB";
 					$section = "FL (Lab)";
 					$sdesc = "Quantitative Methods (LAB)";
 					$units = "1";
@@ -77,7 +77,7 @@ for ($i = 1; $i<12; $i++) {
 					break;
 					
 					case 9:
-					$scode = "ITE 10";
+					$scode = "ITE 10 LAB";
 					$section = "FL (Lab)";
 					$sdesc = "Front-End Development (LAB)";
 					$units = "1";
@@ -95,7 +95,7 @@ for ($i = 1; $i<12; $i++) {
 					break;
 					
 					case 11:
-					$scode = "ITE 11";
+					$scode = "ITE 11 LAB";
 					$section = "FL (Lab)";
 					$sdesc = "Database Management Systems 2 (LAB)";
 					$units = "1";
@@ -103,12 +103,6 @@ for ($i = 1; $i<12; $i++) {
 					$time = "16:30 – 19:30";
 					break;
 				}
-
-		$sqlsubj = "INSERT INTO `subject_info`(`subject_code`, `student_number`, `subject_desc`, `units`, `section`, `day`, `time`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	
-		if($stmtsubj = mysqli_prepare($link, $sqlsubj)){
-			mysqli_stmt_bind_param($stmtsubj, "sssssss", $setscode, $setstudnum, $setsdesc, $setunits, $setsection, $setday, $settime);
-			//$setsubjid = $subjid . $inc;
 			$setscode = $scode; 
 			$setstudnum = $studnum;
 			$setsdesc = $sdesc;
@@ -116,8 +110,19 @@ for ($i = 1; $i<12; $i++) {
 			$setsection = $section;
 			$setday = $day;
 			$settime = $time;
+			
+		$sqlsubj = "INSERT INTO `subject_info`(`subject_code`, `student_number`, `subject_desc`, `units`, `section`, `day`, `time`) 
+            SELECT * FROM (SELECT  ? AS `subject_code`, ? AS `student_number`, ? AS `subject_desc`, ? AS `units`, ? AS `section`, ? AS `day`, ? AS `time`) AS new_value 
+            WHERE NOT EXISTS (SELECT 1 FROM `subject_info` WHERE `subject_code` = ? AND `student_number` = ?) 
+            LIMIT 1;";
+	
+		$stmtsubj = mysqli_prepare($link, $sqlsubj);
+		
+			mysqli_stmt_bind_param($stmtsubj, "sssssssss", $setscode, $setstudnum, $setsdesc, $setunits, $setsection, $setday, $settime, $setscode, $setstudnum);
+			//$setsubjid = $subjid . $inc;
+			
 			mysqli_stmt_execute($stmtsubj);
-			}
+			
 		}
 	mysqli_stmt_close($stmtsubj);
 	mysqli_close($link);

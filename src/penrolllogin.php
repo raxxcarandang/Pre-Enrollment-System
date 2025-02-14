@@ -1,6 +1,9 @@
 <?php 
 require_once "penrollconfig.php";
 $user = $pass = NULL;
+if (isset($_GET['cong'])) {
+	echo "<script>alert('Congratulations! You Are Now Pre-Enrolled! Please Login to See Your Dashboard');</script>";
+}
 if (isset($_POST["user"]) && !empty($_POST["user"])){
 $user = $_POST['user'];
 $pass = $_POST['pass'];
@@ -45,14 +48,17 @@ $querylogin = mysqli_query($link, $checklog);
 	<link rel = "stylesheet" href= "css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="css/penrolllogin.css">
 <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap"
+        href="css/font-google.css"
+        rel="stylesheet">
+		<link
+        href="css/fonts.googleapis.com_css2_family=Poppins_ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap.css"
         rel="stylesheet">
 
 </head>
 
 <body>
 
-  <div class="huhu"> <header style = "color: #28a745" ;><h1><strong>PRE-ENROLLMENT</strong></h1></header></div> 
+  <div class="huhu"> <header style = "color: #28a745" ;><h1 id = "header"><strong>PRE-ENROLLMENT</strong></h1></header></div> 
     <form id="bfv" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method = "post">
         <label for="username"> <b> Username: </b> </label>
         <input type="text" name = "user" class = "form-control" id="username" label placeholder="Username" required>

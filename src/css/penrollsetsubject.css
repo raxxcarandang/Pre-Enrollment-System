@@ -37,7 +37,7 @@ table tr td:last-child{
 #thead {
 	position: sticky;
 	table-layout: auto;
-	background-color: #449c64;
+	background-color: #28a745;
 	color: white;
 	text-align: center;
 	top: 0;
@@ -53,23 +53,24 @@ table tr td:last-child{
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 		
 }
 #logout:hover {
-	background-color: red;
+	background-color: #449c64;
 	color: white;
 }
 #addbutton {
-	position: absolute;
 	margin: 10px 545px 0px;
 	width: 150px;
 	padding: 10px 0px;
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 		
 }
@@ -79,7 +80,7 @@ table tr td:last-child{
 }
 
 body {
-	background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("../img/123.png") no-repeat;
+	background: url("../img/123.png") no-repeat;
 	background-size: 100% 100%;
 	background-position: center;
 	background: cover;
@@ -89,6 +90,11 @@ body {
 	margin: 0;
 	padding: 0;
 	background-attachment: fixed;
-	color: #198754;
+
 	overflow:hidden;
+}
+
+#header {
+	color: white;
+	text-shadow: 2px 2px #28a745;
 }

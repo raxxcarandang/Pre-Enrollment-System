@@ -1,5 +1,6 @@
 *{
     font-family: 'Poppins', sans-serif;
+
 }
 
 article {
@@ -10,9 +11,11 @@ article {
 	height: auto;
 }
 body {
-	background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("../img/123.png") no-repeat;
+	background: url("../img/123.png");
 	background-size: 120% 110%;
 	background-repeat: no-repeat;
+	width: auto;
+	height: 800px;
 }
 .wrapper{
 	width: 600px;
@@ -28,9 +31,11 @@ th, td {
 }
 #table3 {
 	table-layout: auto;
-	width: 100%;
+	width: 90%;
 	height: 300px;
+	margin: auto;
 	margin-top: -40px;
+	margin-bottom: 25px;
 }
 #table2 {
 	display: inline-block;
@@ -51,7 +56,7 @@ th, td {
 #thead {
 	position: sticky;
 	table-layout: auto;
-	background-color: #449c64;
+	background-color: #28a745;
 	color: white;
 	text-align: center;
 	top: 0;
@@ -64,12 +69,14 @@ th, td {
 	width: auto;
 	margin-left: -300px;
 	height: 350px;
+	border-style: none;
 }
 
 #intable1 {
 	width: auto;
 	margin-right: -300px;
 	height: 350px;
+	border-style: none;
 }
 #returnsubject {
 	margin-left: 65px;
@@ -78,11 +85,12 @@ th, td {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 }
 #returnsubject:hover {
-	background-color: red;
+	background-color: #449c64;
 	color: white;
 }
 #deleteall {
@@ -94,11 +102,12 @@ th, td {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 }
 #deleteall:hover {
-	background-color: red;
+	background-color: #449c64;
 	color: white;
 }
 
@@ -109,8 +118,10 @@ th, td {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
+	font-size: 14px;
 }
 #add1y1st:hover {
 	background-color: #449c64;
@@ -123,8 +134,10 @@ th, td {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
+	font-size: 14px;
 }
 #add1y2nd:hover {
 	background-color: #449c64;
@@ -137,8 +150,10 @@ th, td {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
+	font-size: 14px;
 }
 #add2y1st:hover {
 	background-color: #449c64;
@@ -146,13 +161,15 @@ th, td {
 }
 
 #add2y2nd {
-	margin: -69px 300px 0px;
-	padding: 10px 20px;
+	margin: -67px 293px 0px;
+	padding: 10px 10px;
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
+	font-size: 14px;
 }
 #add2y2nd:hover {
 	background-color: #449c64;
@@ -166,12 +183,13 @@ th, td {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 		
 }
 #logout:hover {
-	background-color: red;
+	background-color: #449c64;
 		color: white;
 }
 #addbutton {
@@ -181,10 +199,16 @@ th, td {
 	color: #449c64;
 	font-weight: 650;
 	background-color: white;
-	border: none;
+	border-style: solid;
+	border-color: #449c64;
 	border-radius: 5px;
 }
 #addbutton:hover {
 	background-color: #449c64;
 		color: white;
+}
+
+#header {
+	color: white;
+	text-shadow: 2px 2px #28a745;
 }

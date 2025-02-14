@@ -10,7 +10,10 @@
 	<script src = "js/popper.min.js"></script>
 	<script src = "js/bootstrap.min.js"></script>
 	<link rel = "stylesheet" href="css/penrollstudent.css">
-		
+	<link href = "css/font-google.css" rel = "stylesheet">
+	<link
+        href="css/fonts.googleapis.com_css2_family=Poppins_ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,900&display=swap.css"
+        rel="stylesheet">
 	<script>
 		$(document).ready(function() {
 			$('[data=toggle="tooltip"]').tooltip();
@@ -24,7 +27,7 @@
 				<div class="col-md-12">
 					<div class="mt-5 mb-3 clearfix">
 					<a href = "penrolllogin.php" class = "btn btn-danger pull-left" id = "logout">Log-Out</a>
-						<h2 class="mt-5 mb-3 clearfix" align="center">Student Dashboard</h2>
+						<h2 class="mt-5 mb-3 clearfix" align="center" id = "header">Student Dashboard</h2>
 					</div>
 					<?php
 					require_once "penrollconfig.php";
