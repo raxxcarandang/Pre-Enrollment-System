@@ -1,0 +1,13 @@
+
+body {
+			background-image: url(../img/slsufield.jpg);
+			background-size: 150% 150%;
+			background-repeat: no-repeat;
+			font-size: 14px;
+}
+
+.wrapper{
+			width: 600px;
+			height: 1000px;
+			margin: 0 auto;
+}

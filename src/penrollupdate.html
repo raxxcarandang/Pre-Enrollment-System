@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset = "UTF-8">
+	<title>Update Student Record</title>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="updatestyle.css">
+	<style>
+		.wrapper{
+			width: 600px;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+<div class = "wrapper">
+	<div class = "controller-fluid">
+		<div class = "row">
+			<div id = "student" class = "col-md-12">
+		<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+		<br>
+		<input type = "hidden" name = "student_number"  />
+		Student Name: <input type = "text" name = "studname" class="form-control "  />
+							<span class="invalid-feedback"></span>					
+		<br>
+		                  Student Status: <select name = "sstatus"><option value ="Regular">Regular</option><option value ="Irregular"  >Irregular </option></select> 
+		                  Course Year: <select name = "cyear">
+			<option value = "1ST YEAR"  >1ST YEAR</option>
+			<option value = "2ND YEAR"  >2ND YEAR</option>
+			<option value = "3RD YEAR"  >3RD YEAR</option>
+			<option value = "4TH YEAR"  >4TH YEAR</option>
+										</select> <br> 
+		<br>
+			Payment:     <input type = "radio" name = "payment" value = "FULL" /> FULL           <input type = "radio" name = "payment" value = "PARTIAL"  /> PARTIAL <br><br>
+			School Year: <input type = "text" name = "syear" id = "syearid" value = "2023-2024" class="form-control "/>
+							<span class="invalid-feedback"></span> <br><br>
+			Semester: <input type = "text" name = "semester" id = "semesterid" value = "1ST SEMESTER" class="form-control" />
+							<span class="invalid-feedback"></span>
+					  <input type = "hidden" name = "preenrollment" value = "Pre-Enrolled"/>
+			<br><br>
+		                                                                <input type = "submit" value = "Update" />
+			</form>
+			
+			</div>
+		</div>
+	</div>
+</div>
+</body>	
+</html>
