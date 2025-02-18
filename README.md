@@ -1,5 +1,5 @@
-# Pre-Enrollment-System
-Pre-enrollment system developed for ease of student pre-enrollment information processing and management.
+# Pre Enrollment System
+A Pre-enrollment system that allows for efficient and reliable management of students' pre-enrollment information.
 
 ![Preview](https://github.com/raxxcarandang/Pre-Enrollment-System/blob/main/walkthrough/preview.gif)
 
